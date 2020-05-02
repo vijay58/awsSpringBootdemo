@@ -2,7 +2,7 @@
     
     agent {
 
-        dockerFile true
+        dockerfile true
     }
   
     
