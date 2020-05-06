@@ -15,8 +15,13 @@
         
            stage('docker image') {
             steps {
+              script {
+                  
+                  docker.build("my-image:${env.BUILD_ID}")
+              }
+
                                             
-                docker.build("my-image:${env.BUILD_ID}")
+                
             }
         }
         
