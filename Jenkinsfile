@@ -1,16 +1,27 @@
- pipeline {
-    
-    agent any
-  
-    stages {
-        
-        stage('compile stage') {
+pipeline {
+   agent any
+
+   stages {
+      stage('Build') {
+         steps {
+            // Get some code from a GitHub repository
+            git 'https://github.com/vijay58/awsSpringBootdemo.git'
+
+            // Run Maven on a Unix agent.
+            sh "mvn clean compile install -Dmaven.test.skip=true"
+         }
+      }
+      
+      stage('docker image') {
             steps {
-                maven(maven : 'maven_3.6.3') {
-                    sh 'mvn clean compile install'
-                }
+              script {
+                  
+                  docker.build("my-image:${env.BUILD_ID}")
+              }
+
+                                            
+                
             }
         }
-        
-    }
+   }
 }
