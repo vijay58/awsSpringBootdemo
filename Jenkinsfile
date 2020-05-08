@@ -2,13 +2,12 @@
     
     agent any
   
-    
     stages {
         
         stage('compile stage') {
             steps {
-                withMaven(maven : 'maven') {
-                    sh 'mvn clean install'
+                maven(maven : 'maven_3.6.3') {
+                    sh 'mvn clean compile install'
                 }
             }
         }
