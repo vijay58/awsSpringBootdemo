@@ -12,7 +12,7 @@ pipeline {
       stage('docker image') {
             steps {
               script {
-                  sh 'docker rmi images "my-image:spring-boot-service'
+                  sh 'docker rmi images my-image:spring-boot-service'
                   docker.build("my-image:spring-boot-service")
               }
 
