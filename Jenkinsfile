@@ -12,11 +12,14 @@ pipeline {
       stage('docker image') {
             steps {
               script {
-                  sh 'docker rmi images my-image:spring-boot-service'
+                   dimage = docker.image("my-image:spring-boot-service")
+                    if (dimage.exists()) {
+                      sh 'docker rmi images my-image:spring-boot-service'
+                      }
                  
-              }
-            }
-        }
+                     }    
+               }
+           }
         
         stage('docker build') {
             steps {
