@@ -3,6 +3,7 @@ pipeline {
 
    stages {
       stage('Build') {
+          
          steps {
             // Get some code from a GitHub repository
             sh "mvn clean compile install -Dmaven.test.skip=true"
@@ -12,10 +13,15 @@ pipeline {
       stage('docker image') {
             steps {
               script {
-                   dimage = docker.image("my-image:spring-boot-service")
-                    if (dimage.exists()) {
+                   dimage =  sh 'docker images -q my-image:spring-boot-service'
+                   echo(dimage);
+                    if (dimage) {
                       sh 'docker rmi images my-image:spring-boot-service'
-                      }
+                      echo("docker images exists");
+                      } else {
+                        echo("docker images doesn't exists");
+                        }
+
                  
                      }    
                }
@@ -24,11 +30,14 @@ pipeline {
         stage('docker build') {
             steps {
             script {
-                docker.build("my-image:spring-boot-service")
+                docker.build("my-image:spring-boot-service").run("-p 9082:9082")
               }
                                 
                 
             }
         }
+		
+	 
    }
 }
+ 
