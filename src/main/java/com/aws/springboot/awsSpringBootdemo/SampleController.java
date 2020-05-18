@@ -9,7 +9,7 @@ public class SampleController {
 
     @RequestMapping("/info")
     public String getSampleOutput() {
-        return "sample spring boot Application";
+        return "sample spring boot Application cheking images changes";
     }
 
 }
